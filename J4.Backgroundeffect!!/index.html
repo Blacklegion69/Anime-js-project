@@ -24,6 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
+  overflow: hidden;
 }
   .block {
     width: 50px;
@@ -40,12 +41,24 @@ body {
 <script type="text/javascript" charset="utf-8">
   var container = document.querySelectorAll (".container")[0];
   var blocks = document.querySelectorAll (".block")[0];
+  
+  let word = ["a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"];
+let hexcolor = (y) => {
+  for (let x = 0; x < word.length/2 - 2; x++) {
+    let n = Math.floor(Math.random()*word.length);
+    let hexcode = word[n];
+    y=y+hexcode;
+  }
+  return y;
+}
+setInterval(hexcolor,2000);
+let color = ("#"+hexcolor(""));
   for (let x = 0; x < 200; x++) {
     var block = document.createElement ("div");
     container.appendChild (block);
     block.classList.add("block");
+    block.style.backgroundColor = color;
   }
-  
   const animationBlocks = () => {
     anime({
       targets: '.block',
@@ -58,10 +71,11 @@ body {
       scale: function(){
         return anime.random(0.2,1.3)
       },
-      backgroundColor: ["#d7d7d7","#00efff","#00ffa0","#ff0079"],
+     // backgroundColor: `${color}`,
       easing: 'easeInOutBack',
       duration: 2000,
-      delay: anime.stagger(1),
+      opacity: 0.5,
+      delay: anime.stagger(10),
       complete: animationBlocks,
     });
   }
