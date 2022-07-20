@@ -17,7 +17,7 @@ body {
   position: relative;
 }
 section {
-  position: relative;
+  position: absolute;
   margin: 10px auto;
   display: grid;
   grid-template-columns: repeat(10,1fr);
@@ -28,7 +28,9 @@ section {
   width: 30px;
   height: 30px;
   background-color: #00ff19;
-  
+}
+.box:nth-child(odd) {
+  background-color: #9400ff;
 }
 </style>
   </head>
@@ -49,9 +51,10 @@ for (x=0; x<190; x++) {
 function animation(){
   anime({
   targets: '.box',
-  translateX: anime.stagger(10, {grid: [10, 19], from: 'center', axis: 'x'}),
-  translateY: anime.stagger(10, {grid: [10, 19], from: 'center', axis: 'y'}),
-  rotateZ: anime.stagger([0, 90], {grid: [10, 19], from: 'center', axis: 'x'}),
+  scale: [
+    {value: .1, easing: 'easeOutSine', duration: 500},
+    {value: 1, easing: 'easeInOutQuad', duration: 1200}
+  ], 
   delay: anime.stagger(200, {grid: [10,19], from: 'center'}),
   easing: 'easeInOutQuad',
   duration:1000,
